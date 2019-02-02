@@ -40,3 +40,8 @@
    padding: 5px;
    cursor: pointer;
 }
+
+.table {
+  width: 50%;
+  background-color: red;
+}

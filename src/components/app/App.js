@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import axios from "axios";
-import config from "src/config";
+
+import 'semantic-ui-css/semantic.min.css';
+import  { Button, Table, Container }  from "semantic-ui-react";
+//import axios from "axios";
+//import config from "src/config";
 
 import "./App.css";
 
@@ -8,11 +11,11 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      homes: []
+      homes: [{ id: 1, name: 'home', address: '14 myroad' }, { id: 2, name: 'work', address: '121 high street' }]
     };
   }
   clickMe = event => {
-    axios
+/*     axios
       .get(config.apiUrl + "/api/homes")
       .then(data => {
         this.setState({ homes: data.data });
@@ -20,7 +23,7 @@ class App extends Component {
       })
       .catch(err => {
         console.log("ERROR:", err);
-      });
+      }); */
   };
   render() {
     const { homes } = this.state;
@@ -29,34 +32,31 @@ class App extends Component {
       <div className="App">
         <header className="App-header" />
         <body>
-          <input
-            type="button"
-            className="myButton"
-            value="Click Me"
-            onClick={this.clickMe}
-          />
+          <Container>
+          <Button onClick={this.clickMe} >Click Me</Button>
           {homes.length > 0 ? (
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Address</th>
-                </tr>
-              </thead>
-              <tbody>
-                {homes.map(home => (
-                  <tr key={home.id}>
-                    <td> {home.id}</td>
-                    <td> {home.name}</td>
-                    <td> {home.address}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
+            <Table celled className="table">
+             <Table.Header >
+               <Table.Row>
+                 <Table.HeaderCell>Id</Table.HeaderCell>
+                 <Table.HeaderCell>Name</Table.HeaderCell>
+                 <Table.HeaderCell>Address</Table.HeaderCell>
+               </Table.Row>
+             </Table.Header>
+             <Table.Body>
+              {homes.map(home => (
+                <Table.Row>
+                  <Table.Cell>{home.id}</Table.Cell>
+                  <Table.Cell>{home.name}</Table.Cell>
+                  <Table.Cell>{home.address}</Table.Cell>
+                  </Table.Row>
+               ))}
+             </Table.Body>
+            </Table>
+            ) : (
             <div style={{textAlign: 'left'}}>no records to show yet</div>
           )}
+          </Container>
         </body>
       </div>
     );
